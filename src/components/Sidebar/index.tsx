@@ -1,40 +1,61 @@
-import React from 'react'
-import { FaHome, FaUserAlt, FaShoppingBag } from 'react-icons/fa'
-import { HiMailOpen } from 'react-icons/hi'
-import { GiAchievement } from 'react-icons/gi'
-import { Link } from 'react-router-dom'
+import { FaUserAlt } from 'react-icons/fa'
+
+import { Link, useNavigate } from 'react-router-dom'
 import { HiPencilAlt } from 'react-icons/hi'
-import ESidebar from '../../interfaces/ESidebar'
-
+import { FiLogOut } from 'react-icons/fi'
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { notification } from 'antd';
+interface IUserAuth {
+    uid: string;
+    email: string;
+    apiKey: string;
+}
 function Sidebar() {
-    const [currentPage, setCurrentPage] = React.useState('/');
-
+    const [user, setUser] = useState<IUserAuth>()
+    const navigate = useNavigate();
+    const logout = async () => {
+        try {
+            await signOut(auth);
+            notification.success({
+                message: 'Success',
+                description: 'Logout successfully!',
+                duration: 1.5,
+                key: '1',
+            });
+            navigate('/')
+        } catch (error) {
+            notification.error({
+                message: 'Failed',
+                description: 'Logout failed!',
+                duration: 1.5,
+                key: '1',
+            });
+        }
+    };
+    useEffect(() => {
+        const currentUser = localStorage && JSON.parse(localStorage.getItem('user') || '');
+        setUser(currentUser);
+    }, [navigate])
     return (
         <>
-            <li className={`fixed z-50 top-[30px] right-[30px] sidebar-item ${currentPage === ESidebar.CREATEBLOG ? 'sidebar-item--active' : ''} `} onClick={() => setCurrentPage(ESidebar.CREATEBLOG)}>
-                <Link to='/create-blog' className={`sidebar-item ${currentPage === ESidebar.CREATEBLOG ? 'sidebar-item--active' : ''}`}>
-                    <HiPencilAlt size={20} color='#fff' />
-                </Link>
-            </li>
-            <div className='fixed z-50 mymd:top-[50%] mymd:-translate-y-[50%] mymd:right-[30px] mymd:translate-x-[0] bottom-[20px] right-[50%] translate-x-[50%]'>
-                <div className='flex flex-row mymd:flex-col gap-[20px] '>
-                    <Link to={ESidebar.HOME} className={`sidebar-item ${currentPage === ESidebar.HOME ? 'sidebar-item--active' : ''} `} onClick={() => setCurrentPage(ESidebar.HOME)}>
-                        <FaHome size={20} color='#fff' />
+            <div className='fixed flex items-center z-50 top-[30px] right-[30px]'>
+                <li className={`relative sidebar-item group hover:bg-my-yellow`}>
+                    <Link to='/create-blog' className={`sidebar-item `}>
+                        {
+                            user?.email !== '' ? <HiPencilAlt size={20} color='#fff' /> :
+                                <FaUserAlt size={20} color='#fff' />
+                        }
                     </Link>
-                    <Link to={ESidebar.ABOUTME} className={`sidebar-item ${currentPage === ESidebar.ABOUTME ? 'sidebar-item--active' : ''} `} onClick={() => setCurrentPage(ESidebar.ABOUTME)}>
-                        <FaUserAlt size={20} color='#fff' />
-                    </Link>
-                    <Link to={ESidebar.PROJECT} className={`sidebar-item ${currentPage === ESidebar.PROJECT ? 'sidebar-item--active' : ''}`} onClick={() => setCurrentPage(ESidebar.PROJECT)}>
-                        <FaShoppingBag size={20} color='#fff' />
-                    </Link>
-                    <Link to={ESidebar.CONTACT} className={`sidebar-item ${currentPage === ESidebar.CONTACT ? 'sidebar-item--active' : ''}`} onClick={() => setCurrentPage(ESidebar.CONTACT)}>
-                        <HiMailOpen size={20} color='#fff' />
-                    </Link>
-                    <Link to={ESidebar.BLOG} className={`sidebar-item ${currentPage === ESidebar.BLOG ? 'sidebar-item--active' : ''}`} onClick={() => setCurrentPage(ESidebar.BLOG)}>
-                        <GiAchievement size={20} color='#fff' />
-                    </Link>
-
-                </div>
+                    {
+                        user?.email !== '' && (<div className='absolute group-hover:opacity-100 opacity-0 px-2 right-0 -bottom-[65px] rounded-md w-[100px] h-[50px] bg-[#2B2A2A]'>
+                            <div className='flex flex-row items-center gap-2 justify-center h-full' onClick={logout}>
+                                <p className='text-white font-semibold'>Logout</p> <FiLogOut size={20} color='#fff' />
+                            </div>
+                        </div>)
+                    }
+                </li>
             </div>
         </>
     )
