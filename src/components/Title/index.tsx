@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react'
-
 function Title({ title, titleActive, subTitle }: { title: string, titleActive: string, subTitle: string }) {
 
     return (
