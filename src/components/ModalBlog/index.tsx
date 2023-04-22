@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import Title from '../Title';
 import { IBlog } from '../../pages/ListBlog';

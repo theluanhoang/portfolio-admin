@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import Title from '../../components/Title'
 import { ref, child, get } from "firebase/database";
@@ -54,6 +55,7 @@ function ListBlog() {
                 });
             }
         }).catch((error) => {
+            console.log(error);
             notification.error({
                 message: 'Error',
                 description: 'Error',
@@ -61,7 +63,6 @@ function ListBlog() {
                 key: '1',
             });
         });
-        console.log(blogs);
 
     }, [dbRef, dispatch])
 

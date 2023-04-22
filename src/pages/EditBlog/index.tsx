@@ -7,8 +7,8 @@ import { database } from '../../firebase';
 import { notification } from 'antd';
 import { IBlog } from '../ListBlog';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { selectBlogs, updateBlog } from '../../store/blogs.slice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { updateBlog } from '../../store/blogs.slice';
+import { useAppDispatch } from '../../store/hooks';
 import { IoIosListBox } from 'react-icons/io';
 
 const EditBlog = () => {

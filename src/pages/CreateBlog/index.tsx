@@ -20,8 +20,6 @@ function CreateBlog() {
     const dbRef = ref(database);
     const navigate = useNavigate();
     const [body, setBody] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
     const [thumbnail, setThumbnail] = useState('');
     const [preview, setPreview] = useState(false);
     const handleSubmit = useCallback(async (values: { title: string, description: string }, { resetForm }: { resetForm: () => void }) => {
