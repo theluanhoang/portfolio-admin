@@ -49,7 +49,7 @@ function Sidebar() {
                         }
                     </span>
                     {
-                        user && (<div className='absolute group-hover:opacity-100 opacity-0 px-2 right-0 -bottom-[65px] rounded-md w-[100px] h-[50px] bg-[#2B2A2A]'>
+                        user && (<div className='absolute group-hover:flex hidden px-2 right-0 -bottom-[65px] rounded-md w-[100px] h-[50px] bg-[#2B2A2A]'>
                             <div className='flex flex-row items-center gap-2 justify-center h-full' onClick={logout}>
                                 <p className='text-white font-semibold'>Logout</p> <FiLogOut size={20} color='#fff' />
                             </div>
