@@ -65,9 +65,9 @@ const EditBlog = () => {
                         <input value={description} onChange={(e) => setDescription(e.target.value)} type="text" className='input-form' placeholder='Description blog' />
                         <Quill body={body} setBody={setBody} setThumbnail={setThumbnail} />
                         <div className='flex flex-col items-center sm:flex-row gap-[30px]'>
-                            <button onClick={handlePreview} className='flex flex-row items-center gap-2 max-w-[230px] text-center uppercase text-white px-[30px] py-[10px] border rounded-md border-my-yellow hover:bg-my-yellow duration-200'>
+                            <div onClick={handlePreview} className='flex flex-row items-center gap-2 max-w-[230px] text-center uppercase text-white px-[30px] py-[10px] border rounded-md border-my-yellow hover:bg-my-yellow duration-200'>
                                 Preview <AiFillEye color='white' />
-                            </button>
+                            </div>
                             <button onClick={handleSubmit} className='max-w-[230px] text-center uppercase text-white px-[30px] py-[10px] border rounded-md border-my-yellow hover:bg-my-yellow duration-200'>
                                 Update
                             </button>
